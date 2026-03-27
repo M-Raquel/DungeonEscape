@@ -44,24 +44,26 @@ Follow these instructions to run the game from scratch on any Windows machine
 - Go to [https://www.jetbrains.com/idea/download/](https://www.jetbrains.com/idea/download/)
 - Scroll down to **Community Edition** and download the Windows installer
 - Run the installer and follow the default prompts
-- Kotlin support is built in — no extra plugins needed
+- Kotlin support is built in. No extra plugins needed
 
-### 3. Set Up the Project
+### 3. Clone the Repository
+Open a terminal (Command Prompt or PowerShell on Windows) and run:
+```bash
+git clone https://github.com/M-Raquel/DungeonEscape.git
+cd DungeonEscape
+```
+ 
+### 4. Open the Project in IntelliJ IDEA
 1. Open IntelliJ IDEA
-2. Click **New Project**
-3. Select **Kotlin** on the left, then choose **JVM | IDEA**
-4. Name the project (e.g. `DungeonEscape`) and click **Create**
-
-### 4. Add the Game File
-1. In the left panel, expand the project and right-click the **src** folder
-2. Select **New → Kotlin File/Class**
-3. Name it `Main` and press Enter
-4. Copy and paste the full contents of `Main.kt` into the file
-
+2. Click **Open** (not "New Project")
+3. Navigate to the `DungeonEscape` folder you just cloned and click **OK**
+4. IntelliJ will detect the Kotlin project automatically — click **OK** or **Trust Project** if prompted
+ 
 ### 5. Run the Game
 - Click the green **Run** button in the top toolbar, or press **Shift + F10**
 - The game will launch in the console panel at the bottom of the screen
 - Type commands and press Enter to play
+- Feel free to add or change rooms/items for personal customization.
 
 ### Commands Reference
 | Command | What it does |
