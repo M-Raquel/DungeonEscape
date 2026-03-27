@@ -2,7 +2,11 @@ import functions.buildWorld
 import classes.*
 import functions.*
 
-//Sets up the world, and runs the game. It's in a loop format
+//This game was my way of learning Kotlin's core features in a context that
+//actually forced me to use them. A text adventure naturally needs classes (rooms, items, players),
+//collections (things you carry, places you go), and control flow (what happens when you do what).
+//Rather than writing isolated examples, I wanted one program where everything had to work together.
+
 fun main() {
 
    // Made the world map val so it never gets reassigned
@@ -16,11 +20,16 @@ fun main() {
     println("You have no idea how you got here. You need to escape.")
     println("\nType 'help' to see available commands.\n")
 
-    // Describe the starting Room. Everything after this will be in a loop
+    //Everything after this will be in a loop
     describeRoom(world[player.currentRoom]!!)
 
     var gameRunning = true
 
+    // The main loop is simple: read input, find the room, dispatch
+    // to the right handler, repeat. All the real logic lives in the handler functions.
+    // gameRunning as a var rather than using break keeps the loop condition visible
+    // at the top. It's easier to see at a glance what can end the game than to
+    // hunt for break statements scattered through the when() branches.
     while (gameRunning) {
         print("\n>") // Visual to prompt the user
 

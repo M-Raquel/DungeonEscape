@@ -2,8 +2,12 @@ package functions
 import classes.Room
 import Item
 
-// Function to create all the rooms and connect them. Returns a Map
-// where the key is a room ID string and the value is a Room object
+// buildWorld() is separated from main() so the world setup is isolated from
+// the game loop logic. If we wanted to add multiple levels or reset the world,
+// we could call this again without touching the loop.
+// The returned Map is immutable; the room structure is fixed at game start.
+// Only the contents of each room (items) are mutable, and that's handled
+// inside the Room objects themselves, not here.
 
 fun buildWorld(): Map<String, Room> {
 
@@ -53,7 +57,6 @@ fun buildWorld(): Map<String, Room> {
         exits = mapOf("south" to "guardroom")
     )
 
-    //Return an immutable map - The room structure itself doesn't change
     return mapOf(
         "cell"      to cell,
         "hallway"   to hallway,

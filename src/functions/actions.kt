@@ -3,10 +3,6 @@ package functions
 import classes.Player
 import classes.Room
 
-// Handles inventory logic and item use
-
-//Search the room's item list for the named item, and moves it from the
-// room's collection to the player's inventory
 fun handleTake(itemName: String, player: Player, room: Room) {
     // Searches the list and returns the first match or null
     val item = room.items.find { it.name.equals(itemName, ignoreCase = true) }
@@ -35,7 +31,15 @@ fun handleDrop(itemName: String, player: Player, room: Room) {
     }
 }
 
-//Checks which item is being used and where. Returns true if the game should end
+// handleUse() is where most of the game's design decisions live.
+// The tradeoff here is between flexibility and simplicity: a more effective system
+// might store item effects as lambdas inside the Item class, but that would make
+// the items harder to read and the interactions harder to trace.
+// Keeping the logic here means all "what does X do in Y room" decisions are
+// in one place, which makes it much easier to debug or expand.
+// Returns Boolean so the main loop can respond to a win condition without
+// needing a global variable or exception; the function just signals "we're done."
+
 fun handleUse(itemName: String, player: Player, room: Room): Boolean {
     val item = player.inventory.find { it.name.equals(itemName, ignoreCase = true) }
 
@@ -45,7 +49,12 @@ fun handleUse(itemName: String, player: Player, room: Room): Boolean {
         return false
     }
 
-    // Conditional: what happens depends on WHICH item AND WHERE you are
+    // Using when() here instead of if/else chains because the behavior branches
+    // on a specific value (item name), not a boolean condition. This makes it
+    // easier to add new items later because you just add a new branch.
+    // The edge cases that matter: using the sword somewhere other than the guard room
+    // should do nothing useful (so the player doesn't get confused), and using the
+    // key before defeating the guardian gives a hint rather than silently failing.
     when (item.name) {
 
         "torch" -> {
@@ -53,7 +62,6 @@ fun handleUse(itemName: String, player: Player, room: Room): Boolean {
         }
 
         "sword" -> {
-            // Can only use the sword in the guard room
             if (room.name == "Guard Room") {
                 if (!player.guardianDefeated) {
                     println("You brandish the sword at the guardian!")
@@ -68,7 +76,6 @@ fun handleUse(itemName: String, player: Player, room: Room): Boolean {
         }
 
         "key" -> {
-            // Can only use the key at the exit gate
             if (room.name == "Exit Gate") {
                 if (player.guardianDefeated) {
                     println("\nYou slide the iron key into the lock...")
@@ -88,5 +95,5 @@ fun handleUse(itemName: String, player: Player, room: Room): Boolean {
 
         else -> println("You fiddle with the ${item.name}. Nothing happens.")
     }
-    return false  // game continues
+    return false
 }

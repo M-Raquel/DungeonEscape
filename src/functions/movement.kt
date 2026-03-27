@@ -3,9 +3,12 @@ package functions
 import classes.Player
 import classes.Room
 
-// Moves the player to a new room if the exit exists.
-// I added a special check for this specific dungeon
-// Can't go north in the guard room unless the soldier is defeated.
+// handleMove() returns the new room ID rather than modifying player.currentRoom directly.
+// This keeps the function clean because it decides WHERE to go, and main() decides
+// whether to actually move. The guardian check lives here rather than in main()
+// because it's specific to this exit, not a general movement rule.
+// Returning player.currentRoom unchanged on a failed move means the caller
+// can always do player.currentRoom = handleGo(...) without extra null checks.
 
 fun handleMove(direction: String, player: Player, room: Room): String {
     // Block room until soldier is defeated
