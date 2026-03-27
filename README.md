@@ -11,7 +11,7 @@ to typed commands like `go north`, `take torch`, `use key`, and `inventory`.
 My goal was to use this project to understand how Kotlin handles classes, collections, 
 functions, and control flow. Also to see how it compares to languages I already know.
 
-[DungeonEscape Demo Video](http://youtube.link.goes.here)
+[DungeonEscape Demo Video](https://www.youtube.com/watch?v=jzjiiPVHles)
 
 ## Features
 * 5 rooms to travel through and explore. `Map` for connection logic
